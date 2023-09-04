@@ -7,15 +7,13 @@ import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
-@Data
 @Component("reviewVO")
+@Data
 public class ReviewVO {
 
 	private int level;
 	private int re_articleNO;
 	private int re_parentNO;
-	private int root;		//추가(23.08.23.): 부모글 root
-	private int replyNO;	//추가(23.08.23.): 답변 작성 순서
 	private String userId;
 	private String re_title;
 	private String re_content;
@@ -23,10 +21,29 @@ public class ReviewVO {
 	private String re_noti;
 	private int re_viewCnt;
 	private List<Review_imageVO> re_imageFileList;
+	private int groupNO;
+	private int replyNO;
+
+	public int getReplyNO() {
+		return replyNO;
+	}
+
+	public void setReplyNO(int replyNO) {
+		this.replyNO = replyNO;
+	}
+
+	public int getGroupNO() {
+		return groupNO;
+	}
+
+	public void setGroupNO(int groupNO) {
+		this.groupNO = groupNO;
+	}
+
+	// 김동혁 VO 추가(23.08.01) - getter, setter, toString도 수정
 	private String re_fakeOrderNum;
 	private int re_orderNum;
-	
-	//getter, setter
+
 	public int getLevel() {
 		return level;
 	}
@@ -49,14 +66,6 @@ public class ReviewVO {
 
 	public void setRe_parentNO(int re_parentNO) {
 		this.re_parentNO = re_parentNO;
-	}
-
-	public int getRoot() {
-		return root;
-	}
-
-	public void setRoot(int root) {
-		this.root = root;
 	}
 
 	public String getUserId() {
@@ -130,6 +139,18 @@ public class ReviewVO {
 	public void setRe_orderNum(int re_orderNum) {
 		this.re_orderNum = re_orderNum;
 	}
+
+	//toString
+	@Override
+	public String toString() {
+		return "ReviewVO [level=" + level + ", re_articleNO=" + re_articleNO + ", re_parentNO=" + re_parentNO
+				+ ", userId=" + userId + ", re_title=" + re_title + ", re_content=" + re_content + ", re_writeDate="
+				+ re_writeDate + ", re_noti=" + re_noti + ", re_viewCnt=" + re_viewCnt + ", re_imageFileList="
+				+ re_imageFileList + ", groupNO=" + groupNO + ", replyNO=" + replyNO + ", re_fakeOrderNum="
+				+ re_fakeOrderNum + ", re_orderNum=" + re_orderNum + "]";
+	}
+
+
 }
 
 

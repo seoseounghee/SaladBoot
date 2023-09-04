@@ -90,19 +90,13 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void deleteReview(int re_articleNO) {
 		sqlSession.delete("review.deleteReview", re_articleNO);		
 	}
-	
-	//하유리: 6-2. 기존 답변 순서 변경(23.08.25.)
-	@Override
-	public void updateReplyNO(ReviewVO reviewVO) {
-		sqlSession.update("review.updateReplyNO", reviewVO);		
-	}
-	
+
 	//하유리: 6-2. 답변 작성(23.07.18.)
 	@Override
 	public void replyReview(ReviewVO reviewVO) {
 		sqlSession.insert("review.replyReview", reviewVO);
 	}
-	
+
 	@Override
 	public List<ajaxCommentVO> selectComment(int re_articleNO) {
 		return sqlSession.selectList("review.selectComment", re_articleNO);
@@ -122,5 +116,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 	@Override
 	public int getSearchTotal(String s_title) {
 		return sqlSession.selectOne("review.getSearchTotal", s_title);
+	}
+
+	@Override
+	public int commentLevel(int aa) {
+		return sqlSession.selectOne("review.commentLevel",aa);
 	}
 }

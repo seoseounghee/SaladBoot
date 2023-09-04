@@ -141,8 +141,8 @@
 			<form action="<c:url value='/review/reply'/>" method="POST" enctype="multipart/form-data">
 				<input name="re_articleNO" type="hidden" value="${review.re_articleNO }">
 				<input name="level" type="hidden" value="${review.level }">
-				<input name="root" type="hidden" value="${review.root }">	
-				<input name="replyNO" type="hidden" value="${review.replyNO }">	
+				<input name="groupNO" type="hidden" value="${review.groupNO }">
+				<input name="replyNO" type="hidden" value="${review.replyNO }">
 				<table>
 					<%-- 주문번호 input 비활성화 - 김동혁(23.08.01) --%>
 					<%--<tr>
@@ -183,9 +183,9 @@
 				</table>
 				
 				<div class="reply_btn">
-					<button class="contentBtn" type="button" onClick="location.href='${contextPath}/review/list'">글목록</button>
-					<button class="contentBtn" type="reset" >초기화</button>
 					<button class="contentBtn" type="submit">답변 등록</button>
+					<button class="contentBtn" type="reset" >초기화</button>
+					<button class="contentBtn" type="button" onClick="location.href='${contextPath}/review/list'">글목록</button>
 				</div>
 			</form>
 		</div>

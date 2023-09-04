@@ -60,6 +60,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	//김동혁: 2-1-1. order 테이블 reviewStatus -> 1로 수정(23.08.02)
+
+
 	@Override
 	public void updateReviewStatus(ReviewVO reviewVO) {
 		reviewDao.updateReviewStatus(reviewVO);
@@ -147,12 +149,7 @@ public class ReviewServiceImpl implements ReviewService {
 	//하유리: 6-2. 답변 작성(23.07.18.)
 	@Override
 	public void replyReview(ReviewVO reviewVO, HttpServletRequest request, MultipartHttpServletRequest mRequest) throws Exception {
-		
-		//답변 작성
 		reviewDao.replyReview(reviewVO);
-		//하유리: 6-2. 기존 답변 순서 변경(23.08.25.)
-		
-		reviewDao.updateReplyNO(reviewVO);		
 		
 		//하유리: 게시물 번호 가져오기(23.07.31.)
 		String ReviewSeq = reviewDao.selectReview(reviewVO);
@@ -184,4 +181,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public int getSearchTotal(String s_title) {
 		return reviewDao.getSearchTotal(s_title);
 	}
+
+	@Override
+	public int commentLevel(int aa) {
+		return reviewDao.commentLevel(aa);
+	}
+
 }

@@ -31,7 +31,6 @@
                     enctype="multipart/form-data" role="form"> --%>
 		<input name="re_articleNO" type="hidden"
 			   value="${review.re_articleNO }" disabled>
-			   
 		<table>
 			<%-- 답글형은 주문번호 숨기기 - 김동혁(23.08.01) --%>
 			<c:if test="${review.re_fakeOrderNum != null}">
@@ -105,7 +104,7 @@
 				<%-- 김동혁: 답글 버튼 admin만 사용 가능 --%>
 				<c:if test="${user.userId == 'admin'}">
 					<button type="button" class="contentBtn"
-							onClick="location.href='${contextPath}/review/reply?re_articleNO=${review.re_articleNO }&level=${review.level}&root=${review.root }&replyNO=${review.replyNO }'">답글</button>
+							onClick="location.href='${contextPath}/review/reply?re_articleNO=${review.re_articleNO }&level=${review.level}&groupNO=${review.groupNO}&replyNO=${review.replyNO}'">답글</button>
 				</c:if>
 				<!-- 하유리: 본인 게시글만 수정, 삭제할 수 있도록 처리(23.07.18.) -->
 				<c:if test="${user.userId == review.userId }">
@@ -162,8 +161,8 @@
 					var levelSum = 0;
 
 					if (comment.ac_parentNO !== 0) {
-						for(var j = 1; j < comment.level; j++) {
-							levelSum += 40;
+						for(var j = 0; j < comment.level; j++) {
+							levelSum += 30;
 							console.log('레벨 : '+ comment.level);
 						}
 						newComment = $('<div class="line">').css('padding-left', levelSum + 'px');
@@ -175,16 +174,6 @@
 					var dateString = new Date(comment.ac_writeDate).toISOString().split('T')[0];
 					newComment.append($('<div class="line-content">').text('등록일자: ' + dateString));                     /* 하유리: 텍스트 수정(23.08.02.) */
 					newComment.append($('<button class="line-comment" name="reply" onclick="showCommentForm('+i+')">・ 대댓글</button>'));			/* 하유리: 대댓글 버튼 추가(23.08.02.) */
-
-					/* 하유리: 주석 처리(23.08.02.) */
-					// 인덱스를 이용하여 고유한 id 속성을 추가하여 폼 요소를 생성합니다.
-					/* newComment.append($('<form id="comment_reply_Form_' + i + '" method="POST" style="display:none;">'));
-					var ac_commentNoValue = comment.ac_commentNO;
-					console.log('넘버 내용: ' + ac_commentNoValue);
-					newComment.append($('<input type="text" id="reply-NO_' + i + '" value="' + ac_commentNoValue + '" hidden>'));
-					newComment.append($('<input type="text" class="comment_text2" id="reply-input_' + i + '" placeholder="대댓글을 입력하세요...">'));
-					newComment.append($('<button type="submit" id="commentBt2_' + i + '" class="reply-btn">대댓글달기</button>'));
-					newComment.append($('</form>')); */
 					
 					/* 하유리: 자꾸 <form>태그가 바로 닫혀서, 위의 코드를 1줄로 작성(23.08.02.) */
 					/* 하유리: 댓글 입력 input 클래스명, placeholder, 버튼 텍스트 변경(23.08.02.) */
@@ -245,9 +234,8 @@
 					var levelSum = 0;
 
 					if (comment.ac_parentNO !== 0) {
-						for(var j = 1; j < comment.level; j++) {
+						for(var j = 0; j < comment.level+1; j++) {
 							levelSum += 40;
-							console.log('레벨 : '+ comment.level);
 						}
 						newComment = $('<div class="line">').css('padding-left', levelSum + 'px');
 						// newComment.addClass('line-child');

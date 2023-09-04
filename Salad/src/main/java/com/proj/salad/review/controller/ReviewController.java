@@ -104,8 +104,7 @@ public class ReviewController extends HttpServlet {
 
 	//하유리: 3-1. 게시물 상세보기(23.07.16.)
 	@RequestMapping(value="/content", method=RequestMethod.GET)
-	public String detailReview(@RequestParam("re_articleNO") Integer re_articleNO,
-            Model model, HttpSession session) {
+	public String detailReview(@RequestParam("re_articleNO") Integer re_articleNO, Model model, HttpSession session) {
 		//조회수
 		reviewService.updateCnt(re_articleNO, session);
 		
@@ -114,6 +113,7 @@ public class ReviewController extends HttpServlet {
 		System.out.println("이미지 관련 정보 :" + imageVO);
 				
 		ReviewVO review = reviewService.detailReview(re_articleNO);
+
 
 		//조상현:  세션이용(23.07.31)
 		session.removeAttribute("re_articleNO");
@@ -137,6 +137,9 @@ public class ReviewController extends HttpServlet {
 		 	ajaxCommentVO.setAc_content(request.getParameter("ac_content"));
 		 	ajaxCommentVO.setUserId(request.getParameter("userId"));
 		 	ajaxCommentVO.setRe_articleNO(re_articleNO);
+		 	// @@@@@@@@@@@@@@@@@ 수정사항 8/28
+		 	int level = 1;
+		 	ajaxCommentVO.setLevel(level);
 
 		 	reviewService.ajaxCommentInsert(ajaxCommentVO);
 
@@ -166,12 +169,14 @@ public class ReviewController extends HttpServlet {
 			UserVO userVO = (UserVO) session.getAttribute("user");
 			userId = userVO.getUserId();
 			
-			String aa = request.getParameter("ac_parentNO");
-			
+			int aa = Integer.parseInt(request.getParameter("ac_parentNO"));
+			// @@@@@@@@@@@@@@@@@ 수정사항 8/28
+			int level = reviewService.commentLevel(aa);
 			ajaxCommentVO.setRe_articleNO(re_articleNO);
-		 	ajaxCommentVO.setAc_parentNO(Integer.parseInt(aa));
+		 	ajaxCommentVO.setAc_parentNO(aa);
 		 	ajaxCommentVO.setAc_content(request.getParameter("ac_content"));
 		 	ajaxCommentVO.setUserId(userId);
+		 	ajaxCommentVO.setLevel(level+1);
 		 	
 
 		 	reviewService.ajaxCommentInsert(ajaxCommentVO);
@@ -242,9 +247,11 @@ public class ReviewController extends HttpServlet {
 	
 	//하유리: 6-1. 답변폼 조회(23.07.18.)
 	@RequestMapping(value="/reply", method=RequestMethod.GET)
-	public String replyForm(Model model, int re_articleNO , int level) {
-		ReviewVO review = reviewService.detailReview(re_articleNO);
-		System.out.println("@#@###########################"+review);
+	public String replyForm(Model model, int re_articleNO) {
+		ReviewVO review = reviewService.detailReview(re_articleNO);	
+		System.out.println("#######################################"+review);
+		
+		
 		model.addAttribute("review", review);
 		return "/review/replyReview";		
 	}
@@ -255,9 +262,10 @@ public class ReviewController extends HttpServlet {
 		
 		// 세션 반환(23.07.18.)
         HttpSession session = request.getSession();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@"+reviewVO);
 
         // 글 작성
-        reviewService.replyReview(reviewVO, request, mRequest); 
+        reviewService.replyReview(reviewVO, request, mRequest);
         
 		return "redirect:/review/list";
 	}

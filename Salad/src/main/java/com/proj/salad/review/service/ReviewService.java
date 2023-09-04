@@ -56,4 +56,6 @@ public interface ReviewService {
 
 	public int getSearchTotal(String s_title);
 
+	public int commentLevel(int aa);
+
 }

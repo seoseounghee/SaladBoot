@@ -99,11 +99,11 @@
 					    				</c:when>
 					    				
 					    				<c:when test="${review.level>1 }"> <!-- 답변 표시 -->
-					    					<c:forEach begin="1" end="${review.level }" step="1">
-					    						<span style="padding-left: 13px; margin-right: 3px;"></span>
+					    					<c:forEach begin="1" end="${review.level }" step="2">
+					    						<span style="padding-left: 25px"></span>
 					    					</c:forEach>
-					    					<span style="margin-left:-15px; font-size:15px; color:#128853;">➥</span>
-					    					<a href="${contextPath}/review/content?re_articleNO=${review.re_articleNO }&level=${review.level}"><c:out value="${review.re_title}" /></a>
+					    					<span style="font-size:15px; color:#128853;">➥</span>
+					    					<a href="${contextPath}/review/content?re_articleNO=${review.re_articleNO }"><c:out value="${review.re_title}" /></a>
 					    				</c:when>
 				
 										<c:otherwise> <!-- 최신글 표시 -->
@@ -113,7 +113,7 @@
 										    <c:set var="timeDiff" value="${now.time - review.re_writeDate.time}" /><!-- 현재시간과 게시글 작성일의 시간 차이 -->
 										
 										    <c:if test="${timeDiff <= oneDayMillis}"><!-- 하루동안 new 표시 -->
-										        <a href="${contextPath}/review/content?re_articleNO=${review.re_articleNO}&level=${review.level}">${review.re_title}</a>
+										        <a href="${contextPath}/review/content?re_articleNO=${review.re_articleNO}">${review.re_title}</a>
 										        <img src="${contextPath}/resources/image/review/new.png" width="32px" alt="new" />
 										    </c:if>
 										    <c:if test="${timeDiff > oneDayMillis}">
@@ -128,8 +128,6 @@
 								<td><fmt:formatDate value="${review.re_writeDate }" pattern="yyyy.MM.dd"/></td>
 								<!-- 조회수 -->
 								<td><c:out value="${review.re_viewCnt }"/></td>
-								<!-- 레벨 -->
-								<input type="hidden" name="level" value="${review.level }">
 				    		</tr>
 				    	</c:forEach>
 				    </c:when>

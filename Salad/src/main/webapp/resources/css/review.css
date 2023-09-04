@@ -97,6 +97,12 @@
 	position: relative;
 }
 
+/* 검색어 form */
+.search-form {
+	display: flex;
+	align-items: flex-start;
+}
+
 /* 검색어 입력 input */
 .search-bar, .searchType {
 	border: 1px solid #e2e2e2;		/* 추가(23.08.11.) */

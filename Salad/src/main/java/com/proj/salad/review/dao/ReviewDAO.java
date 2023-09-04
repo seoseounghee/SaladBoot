@@ -47,9 +47,6 @@ public interface ReviewDAO {
 	//하유리: 5. 게시물 삭제하기(23.07.18.)
 	public void deleteReview(int re_articleNO);
 	
-	//하유리: 6-2. 기존 답변 순서 변경(23.08.25.)
-	public void updateReplyNO(ReviewVO reviewVO);
-	
 	//하유리: 6-2. 답변 작성(23.07.18.)
 	public void replyReview(ReviewVO reviewVO);
 
@@ -61,5 +58,6 @@ public interface ReviewDAO {
 
 	public int getSearchTotal(String s_title);
 
+	public int commentLevel(int aa);
 
 }
