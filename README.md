@@ -4,7 +4,7 @@
 
 <div align='center'>
   
-  <h1>SaladDaiso(샐러드다이소) Boot ver.</h1>
+  <h1>샐러드 다이소 프로젝트(SaladDaiso SpringBoot + MySQL)</h1>
   
   <h3>🌟조원🌟</h3>
   <p>
